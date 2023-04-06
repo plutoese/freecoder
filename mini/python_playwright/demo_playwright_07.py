@@ -48,5 +48,5 @@ with sync_playwright() as p:
     #page.get_by_text("专业检索").hover()
     #page.locator('textarea.textarea-major.ac_input').fill('SU%=万科 AND (CN="11-0207")')
 
-    page.wait_for_timeout(10000)
+    page.wait_for_timeout(2000)
     browser.close()
