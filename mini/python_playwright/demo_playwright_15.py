@@ -16,12 +16,13 @@ with sync_playwright() as p:
     newspaper_list = list()
 
     try:
-        page.locator('[title="中央级"]').click()
+        page.locator('[title="地方级"]').click()
         page.wait_for_timeout(500)
         page.locator('[title="列表模式"]').click()
         page.wait_for_timeout(500)
 
-        for i in range(9):
+        sign = True
+        while sign:
             rows = page.query_selector_all('[class="list_tab"] > li')
             for row in rows[1:]:
                 row_data = [item.inner_text() for item in row.query_selector_all('span')]
@@ -32,9 +33,13 @@ with sync_playwright() as p:
                 row_data.append(link)
                 print(row_data)
                 newspaper_list.append(dict(zip(newspaper_name, row_data)))
-            if i < 8:
+            
+            try:
                 page.locator('[class="next"]').click()
-                page.wait_for_timeout(1500)
+                page.wait_for_timeout(500)
+                sign = True
+            except:
+                sign = False
 
         print(newspaper_list)
     except:
@@ -44,4 +49,4 @@ with sync_playwright() as p:
     browser.close()
 
     pdata = pd.DataFrame(newspaper_list)
-    pdata.to_excel(Path(__file__).parent.joinpath("newspaper/central_newspaper.xlsx"), index=False)
+    pdata.to_excel(Path(__file__).parent.joinpath("newspaper/loval_newspaper_v2.xlsx"), index=False)
