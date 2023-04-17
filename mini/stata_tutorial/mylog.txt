@@ -1,0 +1,78 @@
+--------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Earth\Current_project\freecoder\mini\stata_tutorial\mylog.txt
+  log type:  text
+ opened on:  13 Apr 2023, 12:05:11
+
+. 
+. sysuse auto
+(1978 automobile data)
+
+. describe
+
+Contains data from C:\Tools\Stata\ado\base/a/auto.dta
+ Observations:            74                  1978 automobile data
+    Variables:            12                  13 Apr 2020 17:45
+                                              (_dta has notes)
+--------------------------------------------------------------------------------------------
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+--------------------------------------------------------------------------------------------
+make            str18   %-18s                 Make and model
+price           int     %8.0gc                Price
+mpg             int     %8.0g                 Mileage (mpg)
+rep78           int     %8.0g                 Repair record 1978
+headroom        float   %6.1f                 Headroom (in.)
+trunk           int     %8.0g                 Trunk space (cu. ft.)
+weight          int     %8.0gc                Weight (lbs.)
+length          int     %8.0g                 Length (in.)
+turn            int     %8.0g                 Turn circle (ft.)
+displacement    int     %8.0g                 Displacement (cu. in.)
+gear_ratio      float   %6.2f                 Gear ratio
+foreign         byte    %8.0g      origin     Car origin
+--------------------------------------------------------------------------------------------
+Sorted by: foreign
+
+. summarize
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+        make |          0
+       price |         74    6165.257    2949.496       3291      15906
+         mpg |         74     21.2973    5.785503         12         41
+       rep78 |         69    3.405797    .9899323          1          5
+    headroom |         74    2.993243    .8459948        1.5          5
+-------------+---------------------------------------------------------
+       trunk |         74    13.75676    4.277404          5         23
+      weight |         74    3019.459    777.1936       1760       4840
+      length |         74    187.9324    22.26634        142        233
+        turn |         74    39.64865    4.399354         31         51
+displacement |         74    197.2973    91.83722         79        425
+-------------+---------------------------------------------------------
+  gear_ratio |         74    3.014865    .4562871       2.19       3.89
+     foreign |         74    .2972973    .4601885          0          1
+
+. 
+. reg price mpg
+
+      Source |       SS           df       MS      Number of obs   =        74
+-------------+----------------------------------   F(1, 72)        =     20.26
+       Model |   139449474         1   139449474   Prob > F        =    0.0000
+    Residual |   495615923        72  6883554.48   R-squared       =    0.2196
+-------------+----------------------------------   Adj R-squared   =    0.2087
+       Total |   635065396        73  8699525.97   Root MSE        =    2623.7
+
+------------------------------------------------------------------------------
+       price | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         mpg |  -238.8943   53.07669    -4.50   0.000    -344.7008   -133.0879
+       _cons |   11253.06   1170.813     9.61   0.000     8919.088    13587.03
+------------------------------------------------------------------------------
+
+. 
+. log close
+      name:  <unnamed>
+       log:  C:\Earth\Current_project\freecoder\mini\stata_tutorial\mylog.txt
+  log type:  text
+ closed on:  13 Apr 2023, 12:05:11
+--------------------------------------------------------------------------------------------
